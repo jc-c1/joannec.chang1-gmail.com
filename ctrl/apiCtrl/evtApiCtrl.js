@@ -1,4 +1,7 @@
-const Evt = require('../../mod/evtMod');
+//TODO: need to work on update function
+
+const User = require('../../mod/userMod');
+
 
 module.exports = {
   createEvt,
@@ -7,6 +10,8 @@ module.exports = {
   updateEvt,
   deleteEvt, 
   updateRVSP,
+  addGuest,
+  removeGuest,
 };
 
 function createEvt(req, res) {
@@ -82,3 +87,23 @@ function updateRVSP(req, res) {
     });
   });
 }
+
+
+function addGuest(req, res) {
+  Evt.findById(req.params.evtId, function(err, evt) {
+    evt.guest.push(req.body.guestId);
+    evt.save(function(err) {
+      console.log("Added Guest")
+    });
+  });
+}
+
+function removeGuest(req, res) {
+    Evt.findById(req.params.evtId, function(err, evt) {
+      evt.guest.findByIdAndDelete(req.body.guestId);
+      evt.save(function(err) {
+        console.log("Removed Guest")
+      });
+    });
+  }
+

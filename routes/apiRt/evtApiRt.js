@@ -1,3 +1,5 @@
+// TODO: Unfinished
+
 var express = require('express');
 var router = express.Router();
 
@@ -5,11 +7,12 @@ const evtApiCtrl = require('../../controllers/api/evtApiCtrl');
 const userApiCtrl = require('../../controllers/api/userApiCtrl');
 
 //Events CRUD
-router.post('/', evtApiCtrl.createEvt);
-router.get('/', evtApiCtrl.readEvts);
-router.get('/:id', evtApiCtrl.readEvt);
-router.put('/:id', evtApiCtrl.updateEvt);
-router.delete('/:id', evtApiCtrl.deleteEvt);
+router.post('/evt/:id', evtApiCtrl.createEvt);
+router.get('/evt/:id', evtApiCtrl.readEvts);
+router.get('/evt/:id', evtApiCtrl.readEvt);
+// TODO : Can prolly collapse all into just updateEVt and nest each fn into it.
+router.put('/evt/:id', evtApiCtrl.updateEvt, evtApiCtrl.updateRVSP, userApiCtrl.addGuest, userApiCtrl.removeGuest);
+router.delete('/evt/:id', evtApiCtrl.deleteEvt);
 
 
 //User CRUD
@@ -18,9 +21,6 @@ router.put('/user/:id', userApiCtrl.updateUser);
 router.delete('/user/:id', userApiCtrl.deleteUser);
 
 
-//User/Event updates
-router.put('/:id', evtApiCtrl.updateRVSP);
-router.put('/user/:id', userApiCtrl.addGuest);
-router.put('/user/:id', userApiCtrl.removeGuest);
+
 
 module.exports = router;

@@ -1,3 +1,5 @@
+//TODO: all need to be redone for user profile, do after figure out facebook API
+
 console.log("Sanity Check: JS is working!");
 var $evtsList;
 var allEvts = [];

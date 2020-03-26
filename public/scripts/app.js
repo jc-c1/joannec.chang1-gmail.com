@@ -1,3 +1,5 @@
+//TODO : UNFINISHED
+
 console.log("Sanity Check: JS is working!");
 var $evtsList;
 var allEvts = [];

@@ -1,12 +1,12 @@
-const User = require('../mod/userMod');
-const Evt = require('../mod/evtMod');
+const User = require('../../mod/userMod');
+const Evt = require('../../mod/evtMod');
 
 module.exports = {
   createUser,
+  readUser,
   updateUser,
   deleteUser,
-  addGuest,
-  removeGuest,
+  
 };
 
 
@@ -21,6 +21,12 @@ function createUser(req, res) {
         }
         res.status(500).json({ error: 'Could not create user' });
       });
+  }
+
+  function readUser(req, res) {
+    Evt.findById(req.params.id).then(function(userFound) {
+      res.status(200).json(userFound);
+    });
   }
 
   function updateUser(req, res) {
@@ -48,25 +54,6 @@ function createUser(req, res) {
 
 
   
-function addGuest(req, res) {
-  Evt.findById(req.params.evtId, function(err, evt) {
-    evt.guest.push(req.body.guestId);
-    evt.save(function(err) {
-      console.log("Added Guest")
-    });
-  });
-}
-
-function removeGuest(req, res) {
-    Evt.findById(req.params.evtId, function(err, evt) {
-      evt.guest.findByIdAndDelete(req.body.guestId);
-      evt.save(function(err) {
-        console.log("Removed Guest")
-      });
-    });
-  }
-
-
 
 
   
