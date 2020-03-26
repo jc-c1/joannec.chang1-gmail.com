@@ -3,126 +3,78 @@
 
 const db = require('./models');
 
-const books_list = [
+const evts_list = [
   {
-    title: "To Kill a Mockingbird",
-    author: "Harper Lee",
-    image: "https://s3-us-west-2.amazonaws.com/sandboxapi/to_kill_a_mockingbird.jpg",
-    releaseDate: "July 11, 1960"
+    name: "",
+    startTime: "",
+    endTime: "",
+    location: "",
+    host: "",
+    guest: [""],
   },
-  {
-    title: "The Great Gatsby",
-    author: "F Scott Fitzgerald",
-    image: "https://s3-us-west-2.amazonaws.com/sandboxapi/great_gatsby.jpg",
-    releaseDate: "April 10, 1925"
-  },
-  {
-    title: "Les Miserables",
-    author: "Victor Hugo",
-    image: "https://s3-us-west-2.amazonaws.com/sandboxapi/les_miserables.jpg",
-    releaseDate: "Unknown 1862"
-  },
-  {
-    title: "Around the World in 80 Days",
-    author: "Jules Verne",
-    image: "https://s3-us-west-2.amazonaws.com/sandboxapi/around_the_world_in_80_days.jpg",
-    releaseDate: "January 30, 1873"
-  },
-  {
-    title: "Lean In",
-    author: "Sheryl Sandberg",
-    image: "https://s3-us-west-2.amazonaws.com/sandboxapi/lean_in.jpg",
-    releaseDate: "March 11, 2013"
-  },
-  {
-    title: "The Four Hour Workweek",
-    author: "Tim Ferriss",
-    image: "https://s3-us-west-2.amazonaws.com/sandboxapi/four_hour_work_week.jpg",
-    releaseDate: "April 1, 2007"
-  },
-  {
-    title: "Of Mice and Men",
-    author: "John Steinbeck",
-    image: "https://s3-us-west-2.amazonaws.com/sandboxapi/of_mice_and_men.jpg",
-    releaseDate: "Unknown 1937"
-  },
-  {
-    title: "Romeo and Juliet",
-    author: "William Shakespeare",
-    image: "https://s3-us-west-2.amazonaws.com/sandboxapi/romeo_and_juliet.jpg",
-    releaseDate: "Unknown 1597"
-  }
 ];
 
-const authors_list = [
+const user_list = [
   {
     name: "Harper Lee",
-    alive: false
+    gAcc: ""
   },
   {
     name: "F Scott Fitzgerald",
-    alive: false
+    gAcc: ""
   },
   {
     name: "Victor Hugo",
-    alive: false
+    gAcc: ""
   },
   {
     name: "Jules Verne",
-    alive: false
+    gAcc: ""
   },
   {
     name: "Sheryl Sandberg",
-    alive: true
+    gAcc: ""
   },
-  {
-    name: "Tim Ferriss",
-    alive: true
-  },
-  {
-    name: "John Steinbeck",
-    alive: false
-  },
-  {
-    name: "William Shakespeare",
-    alive: false
-  }
 ];
 
 
 
 
-db.Author.deleteMany({}, (err, authors)=> {
-  console.log('removed all authors');
-  db.Author.create(authors_list, (err, authors)=>{
+db.User.deleteMany({}, (err, users)=> {
+  console.log('removed all users');
+  db.User.create(user_list, (err, users)=>{
     if (err) {
       console.log(err);
       return;
     }
-    console.log('recreated all authors');
-    console.log(`created ${authors.length} authors`);
+    console.log('recreated all users');
+    console.log(`created ${users.length} users`);
 
 
-    db.Book.deleteMany({}, (err, books)=>{
-      console.log('removed all books');
-      books_list.forEach((bookData)=> {
-        const book = new db.Book({
-          title: bookData.title,
-          image: bookData.image,
-          releaseDate: bookData.releaseDate
+    db.Evt.deleteMany({}, (err, evts)=>{
+      console.log('removed all evts');
+      evts_list.forEach((evtData)=> {
+        const evt = new db.Evt({
+          name: evtData.name,
+          startTime: evtData.startTime,
+          endTime: evtData.endTime,
+          location: evtData.location,
+          host: evtData.host,
+          guest: evtData.guest,
+          
         });
-        db.Author.findOne({name: bookData.author}, (err, foundAuthor)=> {
-          console.log(`found author ${foundAuthor.name} for book ${book.title}`);
+        db.User.findOne({name: evtData.guest}, (err, foundUser)=> {
+          console.log(`found User ${foundUser.name} for event ${evt.name}`);
           if (err) {
             console.log(err);
             return;
           }
-          book.author = foundAuthor;
-          book.save((err, savedBook)=>{
+          evt.user = foundUser;
+          evt.save((err, savedEvt)=>{
             if (err) {
               console.log(err);
             }
-            console.log(`saved ${savedBook.title} by ${foundAuthor.name}`);
+            console.log(`saved ${savedEvt.name} by ${foundUser.name}`);
           });
         });
       });
