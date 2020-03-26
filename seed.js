@@ -1,17 +1,22 @@
-// This file allows us to seed our application with data
-// simply run: `node seed.js` from the root of this project folder.
+//TODO: unfinished
 
 const db = require('./models');
 
 const evts_list = [
   {
-    name: "",
+    name: "Christmas Dinner",
     startTime: "",
     endTime: "",
-    location: "",
-    host: "",
-    guest: [""],
+    location: "North Pole",
+    
   },
+  {
+    name: "NYE Count Down",
+    startTime: "",
+    endTime: "",
+    location: "Big Apple",
+    
+  }
 ];
 
 const user_list = [
@@ -59,10 +64,12 @@ db.User.deleteMany({}, (err, users)=> {
           startTime: evtData.startTime,
           endTime: evtData.endTime,
           location: evtData.location,
-          host: evtData.host,
-          guest: evtData.guest,
+          
           
         });
+        
+        //TODO: ADD IN HOST/GUEST/RVSP
+        /*
         db.User.findOne({name: evtData.guest}, (err, foundUser)=> {
           console.log(`found User ${foundUser.name} for event ${evt.name}`);
           if (err) {
@@ -75,8 +82,11 @@ db.User.deleteMany({}, (err, users)=> {
               console.log(err);
             }
             console.log(`saved ${savedEvt.name} by ${foundUser.name}`);
+            
           });
         });
+
+        */
       });
     });
   });
