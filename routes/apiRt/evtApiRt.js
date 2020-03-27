@@ -5,11 +5,11 @@ const evtApiCtrl = require('../../ctrl/apiCtrl/evtApiCtrl');
 const userApiCtrl = require('../../ctrl/apiCtrl/userApiCtrl');
 
 //Events CRUD
-router.post('/evt/:id', evtApiCtrl.createEvt);
-router.get('/evt/:id/all', evtApiCtrl.readEvts);
-router.get('/evt/:id', evtApiCtrl.readEvt);
-router.put('/evt/:id', evtApiCtrl.updateEvt);
-router.delete('/evt/:id', evtApiCtrl.deleteEvt);
+router.post('/api/evt/:id', evtApiCtrl.createEvt);
+router.get('/api/evt/:id/all', evtApiCtrl.readEvts);
+router.get('/api/evt/:id', evtApiCtrl.readEvt);
+router.put('/api/evt/:id', evtApiCtrl.updateEvt);
+router.delete('/api/evt/:id', evtApiCtrl.deleteEvt);
 
 router.post("/api/evt/:id/host", evtApiCtrl.createHost);
 router.delete("/api/evt/:id/host", evtApiCtrl.deleteHost);

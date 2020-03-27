@@ -156,7 +156,7 @@ function createGuest(req, res) {
 
 function updateGuestRVSP(req, res) {
   Evt.findById(req.params.id, (err,evtFound) =>{
-    evtFound.guest.findByIdAndUpdate(req.body.id, req.body.rvsp, {new:true})
+    evtFound.guest.findByIdAndUpdate({_id: req.body.id}, {"rvsp": req.body.rvsp}, {new:true})
     .populate('user')
     .exec((err,rvspFound) => {
       if(err) {consol.log("index error:" + err)}
@@ -173,7 +173,7 @@ function updateGuestRVSP(req, res) {
 
   function updateHostRVSP(req, res) {
     Evt.findById(req.params.id, (err,evtFound) =>{
-      evtFound.host.findByIdAndUpdate(req.body.id, req.body.rvsp, {new:true})
+      evtFound.host.findByIdAndUpdate({_id: req.body.id}, {"rvsp": req.body.rvsp}, {new:true})
       .populate('user')
       .exec((err,rvspFound) => {
         if(err) {consol.log("index error:" + err)}

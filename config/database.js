@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.DATAVASE_URL, {
+mongoose.connect("mongodb://localhost:27017/calendardb", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,

@@ -10,12 +10,12 @@ require('cors')
 const bodyParser = require('body-parser')
 
 
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUnitialized: true,
-  store: new MongoSTore({url: process.env.DATABASE_URL})
-}))
+// app.use(session({
+//   secret: process.env.SESSION_SECRET,
+//   resave: false,
+//   saveUnitialized: true,
+//   store: new MongoSTore({url: process.env.DATABASE_URL})
+// }))
 
 
 var evtApiRt = require('./routes/apiRt/evtApiRt');
