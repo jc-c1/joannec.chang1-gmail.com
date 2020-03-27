@@ -1,5 +1,5 @@
 require('./config/database')
-
+require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -10,7 +10,12 @@ require('cors')
 const bodyParser = require('body-parser')
 
 
-
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUnitialized: true,
+  store: new MongoSTore({url: process.env.DATABASE_URL})
+}))
 
 
 var evtApiRt = require('./routes/apiRt/evtApiRt');
