@@ -1,15 +1,20 @@
+require('./config/database')
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('cors')
+
+const bodyParser = require('body-parser')
 
 
 
 
-require('./config/database');
+
 var evtApiRt = require('./routes/apiRt/evtApiRt');
-var indexRt = require('./routes/indexRt')
+// var indexRt = require('./routes/indexRt')
 
 
 

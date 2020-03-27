@@ -82,19 +82,22 @@ function deleteEvt(req, res) {
 
 
 function createGuest(req, res) {
-  Evt.findById(req.params.id, (err, evtFound) =>{
-    evtFound.guest.push({user: req.body.id, rvsp: false})
-    evtFound.save((err, evtFound) =>{
+  Evt.findById(req.params.id,
+  (err, evtFound) =>{
+    evtFound.guest.push({"user": req.body.id, "rvsp": false})
+    
       res.json(evtFound)
       console.log("Added Guest")
-    })      
+      evtFound.save()
+    })
     .catch(err => {
       if (err.name === 'ValidationError') {
         return res.status(400).json({ error: 'Invalid Inputs' });
       }
       res.status(500).json({ error: 'Could not create Host' });
-    });
-    });
+    });      
+
+    
   }
 
   function deleteGuest(req, res) {
@@ -115,11 +118,13 @@ function createGuest(req, res) {
 
   
   function createHost(req, res) {
-    Evt.findById(req.params.id, (err, evtFound) =>{
-      evtFound.host.push({user: req.body.id, rvsp: false})
-      evtFound.save((err, evtFound) =>{
+    Evt.findById(req.params.id,
+    (err, evtFound) =>{
+      evtFound.host.push({"user": req.body.id, "rvsp": false})
+      
         res.json(evtFound)
         console.log("Added Host")
+        evtFound.save()
       })
       .catch(err => {
         if (err.name === 'ValidationError') {
@@ -128,7 +133,7 @@ function createGuest(req, res) {
         res.status(500).json({ error: 'Could not create Host' });
       });      
 
-      });
+      
     }
   
   function deleteHost(req, res) {

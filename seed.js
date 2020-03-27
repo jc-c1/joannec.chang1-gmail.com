@@ -47,7 +47,6 @@ const user_list = [
 
 
 
-
 User.deleteMany({}, (err, users)=> {
   console.log('removed all users');
   User.create(user_list, (err, users)=>{
@@ -70,10 +69,10 @@ User.deleteMany({}, (err, users)=> {
           
           
         });
+
         
-        //TODO: ADD IN HOST/GUEST/RVSP
-        /*
-        db.User.findOne({name: evtData.guest}, (err, foundUser)=> {
+       
+        User.findOne({name: evtData.guest}, (err, foundUser)=> {
           console.log(`found User ${foundUser.name} for event ${evt.name}`);
           if (err) {
             console.log(err);
@@ -89,7 +88,7 @@ User.deleteMany({}, (err, users)=> {
           });
         });
 
-        */
+        
       });
     });
   });

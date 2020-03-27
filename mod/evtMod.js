@@ -26,8 +26,8 @@ const hostSchema = new Schema(
 const evtSchema = new Schema(
   {
     name: { type: String, required: true },
-    startTime: {type: Date,},
-    endTime: {type: Date,},
+    startTime: {type: String,},
+    endTime: {type: String,},
     location: { type: String,},
     host: [hostSchema],
     guest: [guestSchema]
