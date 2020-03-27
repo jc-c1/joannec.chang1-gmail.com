@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/api', evtApiRt); 
-app.use('/', indexRt)
+// app.use('/', indexRt)
 
 
 
@@ -47,4 +47,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 module.exports = app;

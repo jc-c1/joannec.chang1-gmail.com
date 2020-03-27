@@ -1,53 +1,56 @@
-//TODO: unfinished
-
-const db = require('./models');
+const User = require('./mod/userMod');
+const Evt = require('./mod/evtMod');
 
 const evts_list = [
   {
     name: "Christmas Dinner",
-    startTime: "",
-    endTime: "",
+    startTime: "2020, 11, 25, 17, 30",
+    endTime: "2020, 11, 25, 23, 30",
     location: "North Pole",
     
   },
   {
-    name: "NYE Count Down",
-    startTime: "",
-    endTime: "",
-    location: "Big Apple",
-    
+    name: "NYE Count Down Party",
+    startTime: "2020, 11, 31, 23, 30",
+    endTime: "2021, 0, 1, 2, 30",
+    location: "Lego Land",
   }
 ];
 
 const user_list = [
   {
-    name: "Harper Lee",
-    gAcc: ""
+    firstName: "Bob",
+    lastName: "Da Builder",
+    username: "BDB",
+    password: "xxxxx",
+    DOB: "1990, 7, 20",
+    Gender: "Male",
   },
   {
-    name: "F Scott Fitzgerald",
-    gAcc: ""
+    firstName: "Monica",
+    lastName: "Geller",
+    username: "ABC",
+    password: "xxxxxxxx",
+    DOB: "1980, 10, 10",
+    Gender: "Female",
   },
   {
-    name: "Victor Hugo",
-    gAcc: ""
+    firstName: "Chandler",
+    lastName: "Bing",
+    username: "Muriel",
+    password: "xxxxxxxxxxx",
+    DOB: "1978, 2, 4",
+    Gender: "Male",
   },
-  {
-    name: "Jules Verne",
-    gAcc: ""
-  },
-  {
-    name: "Sheryl Sandberg",
-    gAcc: ""
-  },
+  
 ];
 
 
 
 
-db.User.deleteMany({}, (err, users)=> {
+User.deleteMany({}, (err, users)=> {
   console.log('removed all users');
-  db.User.create(user_list, (err, users)=>{
+  User.create(user_list, (err, users)=>{
     if (err) {
       console.log(err);
       return;
@@ -56,10 +59,10 @@ db.User.deleteMany({}, (err, users)=> {
     console.log(`created ${users.length} users`);
 
 
-    db.Evt.deleteMany({}, (err, evts)=>{
+    Evt.deleteMany({}, (err, evts)=>{
       console.log('removed all evts');
       evts_list.forEach((evtData)=> {
-        const evt = new db.Evt({
+        const evt = new Evt({
           name: evtData.name,
           startTime: evtData.startTime,
           endTime: evtData.endTime,

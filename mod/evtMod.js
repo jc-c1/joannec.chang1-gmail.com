@@ -1,11 +1,22 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const dipSchema = new Schema(
+const guestSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId,
       ref: 'User'},
-    dipStat: { type: Boolean},
+    rvsp: { type: Boolean},
+  },
+  {
+    timestamps: true
+  }
+);
+
+const hostSchema = new Schema(
+  {
+    user: { type: Schema.Types.ObjectId,
+      ref: 'User'},
+    rvsp: { type: Boolean},
   },
   {
     timestamps: true
@@ -18,11 +29,8 @@ const evtSchema = new Schema(
     startTime: {type: Date,},
     endTime: {type: Date,},
     location: { type: String,},
-    host: { type: Schema.Types.ObjectId,
-        ref: 'User'},
-    guest: [{ type: Schema.Types.ObjectId,
-        ref: 'User'}],
-    rvsp: dipSchema
+    host: [hostSchema],
+    guest: [guestSchema]
   },
   {
     timestamps: true

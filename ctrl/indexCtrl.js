@@ -1,4 +1,4 @@
-//TODO: unfinished
+/*//TODO: unfinished
 
 const Evt = require('../mod/evtMod');
 
@@ -16,3 +16,4 @@ function showEvts (req, res, next){
   }
 
 
+*/
