@@ -32,14 +32,13 @@ function createEvt(req, res) {
 }
 
 function readEvts(req, res) {
-  Evt.find({
-    'host': [{'host': {$in : [req.params.id]}}], 
-    'guest': [{'guest': {$in : [req.params.id]}}]
-  })
+  Evt.find({})
     .then(evtsFound => {
+      console.log(evtsFound)
       res.status(200).json(evtsFound);
     })
     .catch(err => {
+      console.log(err)
       res.status(500).json({ error: true });
     });
 }

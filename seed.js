@@ -47,49 +47,33 @@ const user_list = [
 
 
 
-User.deleteMany({}, (err, users)=> {
-  console.log('removed all users');
-  User.create(user_list, (err, users)=>{
-    if (err) {
-      console.log(err);
-      return;
+
+
+let saveAll = (x) => {
+        return  x   .save()
+       .catch(err => console.log(err))
     }
-    console.log('recreated all users');
-    console.log(`created ${users.length} users`);
 
+const insertSeed =()=>{
+  let a = evts_list.map((x) => {
+      return saveAll(new Evt(x))
+  })
 
-    Evt.deleteMany({}, (err, evts)=>{
-      console.log('removed all evts');
-      evts_list.forEach((evtData)=> {
-        const evt = new Evt({
-          name: evtData.name,
-          startTime: evtData.startTime,
-          endTime: evtData.endTime,
-          location: evtData.location,
-          
-          
-        });
+  let b = user_list.map((x) => {
+    return saveAll(new User(x))
+  })
 
-        
-       
-        User.findOne({name: evtData.guest}, (err, foundUser)=> {
-          console.log(`found User ${foundUser.name} for event ${evt.name}`);
-          if (err) {
-            console.log(err);
-            return;
-          }
-          evt.user = foundUser;
-          evt.save((err, savedEvt)=>{
-            if (err) {
-              console.log(err);
-            }
-            console.log(`saved ${savedEvt.name} by ${foundUser.name}`);
-            
-          });
-        });
+  Promise .all(b)
+          .save(User)
+          .catch(err => {console.log(err);})
 
-        
-      });
-    });
-  });
-});
+  Promise.all (a)
+          .save(Evt)
+          .catch(err => {console.log(err);})
+}
+
+Evt.deleteMany()
+    .then (() => console.log("deleted Evt"))
+    .then (User.deleteMany())
+    .then (() => console.log("deleted User"))
+    .then (insertSeed)
