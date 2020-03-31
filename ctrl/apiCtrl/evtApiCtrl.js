@@ -32,13 +32,13 @@ function createEvt(req, res) {
 }
 
 function readEvts(req, res) {
-  Evt.find({})
+  Evt.find({name: })
     .then(evtsFound => {
-      console.log(evtsFound)
+      
       res.status(200).json(evtsFound);
     })
     .catch(err => {
-      console.log(err)
+      
       res.status(500).json({ error: true });
     });
 }
