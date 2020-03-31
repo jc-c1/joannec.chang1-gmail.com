@@ -1,19 +1,19 @@
-const User = require('./mod/userMod');
-const Evt = require('./mod/evtMod');
+require("./config/database");
+const User = require("./mod/userMod");
+const Evt = require("./mod/evtMod");
 
 const evts_list = [
   {
     name: "Christmas Dinner",
     startTime: "2020, 11, 25, 17, 30",
     endTime: "2020, 11, 25, 23, 30",
-    location: "North Pole",
-    
+    location: "North Pole"
   },
   {
     name: "NYE Count Down Party",
     startTime: "2020, 11, 31, 23, 30",
     endTime: "2021, 0, 1, 2, 30",
-    location: "Lego Land",
+    location: "Lego Land"
   }
 ];
 
@@ -24,7 +24,7 @@ const user_list = [
     username: "BDB",
     password: "xxxxx",
     DOB: "1990, 7, 20",
-    Gender: "Male",
+    Gender: "Male"
   },
   {
     firstName: "Monica",
@@ -32,7 +32,7 @@ const user_list = [
     username: "ABC",
     password: "xxxxxxxx",
     DOB: "1980, 10, 10",
-    Gender: "Female",
+    Gender: "Female"
   },
   {
     firstName: "Chandler",
@@ -40,40 +40,50 @@ const user_list = [
     username: "Muriel",
     password: "xxxxxxxxxxx",
     DOB: "1978, 2, 4",
-    Gender: "Male",
-  },
-  
+    Gender: "Male"
+  }
 ];
 
+const insertSeed = () => {
+  let a = evts_list.map(x => {
+    return new Evt(x).save().catch(err => console.log(err));
+  });
+  let b = user_list.map(x => {
+    return new User(x).save().catch(err => console.log(err));
+  });
 
+  // let b = user_list.map((x) => {
+  //   return saveAll(new User(x))
+  // })
 
+  // Promise .all(b)
+  //         .save(User)
+  //         .catch(err => {console.log(err);})
 
-
-let saveAll = (x) => {
-        return  x   .save()
-       .catch(err => console.log(err))
-    }
-
-const insertSeed =()=>{
-  let a = evts_list.map((x) => {
-      return saveAll(new Evt(x))
-  })
-
-  let b = user_list.map((x) => {
-    return saveAll(new User(x))
-  })
-
-  Promise .all(b)
-          .save(User)
-          .catch(err => {console.log(err);})
-
-  Promise.all (a)
-          .save(Evt)
-          .catch(err => {console.log(err);})
-}
+  Promise.all([...a, ...b])
+    .then(() => {
+      let userId;
+      User.findOne()
+        .then(UserFound => {
+          userId = UserFound._id;
+          console.log(userId);
+        })
+        .then(() =>{
+          Evt.find().then(evtsFound => {
+            evtsFound.forEach(evtFound => {
+              evtFound.host.push(userId);
+              evtFound.save();
+            });
+          })
+        });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
 
 Evt.deleteMany()
-    .then (() => console.log("deleted Evt"))
-    .then (User.deleteMany())
-    .then (() => console.log("deleted User"))
-    .then (insertSeed)
+  .then(() => console.log("deleted Evt"))
+  .then(User.deleteMany())
+  .then(() => console.log("deleted User"))
+  .then(insertSeed);

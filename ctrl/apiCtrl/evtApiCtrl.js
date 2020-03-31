@@ -32,7 +32,7 @@ function createEvt(req, res) {
 }
 
 function readEvts(req, res) {
-  Evt.find({name: })
+  Evt.find()
     .then(evtsFound => {
       
       res.status(200).json(evtsFound);
