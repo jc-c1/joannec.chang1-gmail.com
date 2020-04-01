@@ -52,13 +52,7 @@ const insertSeed = () => {
     return new User(x).save().catch(err => console.log(err));
   });
 
-  // let b = user_list.map((x) => {
-  //   return saveAll(new User(x))
-  // })
 
-  // Promise .all(b)
-  //         .save(User)
-  //         .catch(err => {console.log(err);})
 
   Promise.all([...a, ...b])
     .then(() => {
@@ -71,7 +65,7 @@ const insertSeed = () => {
         .then(() =>{
           Evt.find().then(evtsFound => {
             evtsFound.forEach(evtFound => {
-              evtFound.host.push(userId);
+              evtFound.host.push({user: userId, rvsp: 1});
               evtFound.save();
             });
           })
@@ -81,9 +75,11 @@ const insertSeed = () => {
       console.log(err);
     });
 };
+let c = User.deleteMany()
+let d = Evt.deleteMany()
 
-Evt.deleteMany()
+
+Promise.all([c, d])
   .then(() => console.log("deleted Evt"))
-  .then(User.deleteMany())
   .then(() => console.log("deleted User"))
   .then(insertSeed);

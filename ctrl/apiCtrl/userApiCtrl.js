@@ -6,9 +6,21 @@ module.exports = {
   readUser,
   updateUser,
   deleteUser,
+  adminUsers
   
 };
 
+function adminUsers(req, res) {
+  User.find(
+    {}
+  )
+    .then(usersFound => {
+       res.status(200).json(usersFound);}
+    )
+    .catch(err => {
+      res.status(500).json({ error: true });
+    });
+}
 
 function createUser(req, res) {
     User.create(req.body)

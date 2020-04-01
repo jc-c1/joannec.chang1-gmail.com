@@ -5,7 +5,7 @@ const guestSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId,
       ref: 'User'},
-    rvsp: { type: Boolean},
+    rvsp: { type: Number},
   },
   {
     timestamps: true
@@ -16,7 +16,7 @@ const hostSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId,
       ref: 'User'},
-    rvsp: { type: Boolean},
+    rvsp: { type: Number},
   },
   {
     timestamps: true
