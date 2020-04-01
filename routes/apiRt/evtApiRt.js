@@ -36,8 +36,4 @@ router.put('/api/user/:id', userApiCtrl.updateUser);
 router.delete('/api/user/:id', userApiCtrl.deleteUser);
 
 
-
-
-
-
 module.exports = router;

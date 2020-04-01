@@ -31,7 +31,7 @@ function createUser(req, res) {
         if (err.name === 'ValidationError') {
           return res.status(400).json({ error: 'Invalid Inputs' });
         }
-        res.status(500).json({ error: 'Could not create user' });
+        res.status(500).json({ error: err });
       });
   }
 
